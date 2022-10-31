@@ -5,31 +5,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Kladd extends JFrame implements MouseListener, ActionListener {
-    List<String> stringList = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " ");
-    int[] plats = new int[15];
-
     JLabel ett, två, tre, fyra, fem, sex, sju, åtta, nio, tio, elva, tolv, tretton, fjorton, femton, blank;
     List<JLabel> labelList = Arrays.asList(ett, två, tre, fyra, fem, sex, sju, åtta, nio, tio, elva, tolv,
             tretton, fjorton, femton, blank);
     JPanel spelGrid = new JPanel();
     JButton nyttSpelKnapp = new JButton("Nytt spel!");
     JPanel panel = new JPanel();
-    JLabel winnerMess = new JLabel("Du vann!");//ändra till "" -> när allt är ordnat 1-15 ändrar man till "Du vann!" för winnerMess i lämplig actionListener
+    JLabel winnerMess = new JLabel(" ");
 
     public Kladd() {
         spelGrid.setLayout(new GridLayout(4, 4));
 
         for (int i = 0; i < labelList.size(); i++) {
-            labelList.set(i, new JLabel(stringList.get(i)));
+            labelList.set(i, new JLabel(String.valueOf(i+1)));
             spelGrid.add(labelList.get(i));
             labelList.get(i).addMouseListener(this);
         }
+        labelList.get(labelList.size()-1).setText(" ");
 
         panel.setLayout(new BorderLayout());
         panel.add(nyttSpelKnapp, BorderLayout.NORTH);
@@ -60,27 +57,22 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
                     indexBlank = labelList.indexOf(jl);
                 }
             }
-            int hej = 0;
-            for (JLabel j : labelList) {
-                plats[hej] = labelList.indexOf(j);
-                System.out.println(j.getText() + " " + plats[hej]);
+            System.out.println("index " + indexBlank + " " + indexSiffra);
 
-            }
-
-                System.out.println("index " + indexBlank + " " + indexSiffra);
-
-
-                int platsJLabel = 0;
-                int platsBlank = 0;
-
-                if (indexBlank % 4 == indexSiffra % 4 && Math.abs((indexBlank / 4) - (indexSiffra / 4)) == 1) {//den byter bara plats med 12:an
-                    Collections.swap(labelList, indexSiffra, indexBlank);
-                    //lägg i lista; se plats för 0, och om den man klickar på är inom plats +1, -1, +4 eller -4 kan man byta!
-                    revalidate();
-                    repaint();
+            if (indexBlank % 4 == indexSiffra % 4 && Math.abs((indexBlank / 4) - (indexSiffra / 4)) == 1
+            || Math.abs(indexBlank - indexSiffra) == 1 && !((indexSiffra % 4 == 0 && indexBlank % 4 == 3) ||
+                    (indexSiffra % 4 == 3 && indexBlank % 4 == 0))) {
+                spelGrid.removeAll();
+                Collections.swap(labelList, indexSiffra, indexBlank);
+                for (JLabel jLabel : labelList) {
+                    spelGrid.add(jLabel);
                 }
-
+                //lägg in att visa vinnarmeddelande när alla stämmer
+                revalidate();
+                repaint();
             }
+
+        }
 
     }
 
@@ -110,8 +102,9 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
             spelGrid.removeAll();
             Collections.shuffle(labelList);
             for (int i = 0; i < labelList.size(); i++) {
-               spelGrid.add(labelList.get(i));
+                spelGrid.add(labelList.get(i));
             }
+            winnerMess.setText(" ");
             revalidate();
             repaint();
         }
