@@ -25,6 +25,10 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
     Border border = BorderFactory.createLineBorder(new Color(139, 84, 154, 147), 1);
 
     public Kladd() {
+        nyttSpelKnapp.setBackground(new Color(0x79110226, true));
+        nyttSpelKnapp.setForeground(new Color(0xCBCBE0));
+
+
         backgroundImage = new ImageIcon(this.getClass().getResource("pinkDroplet.jpg"));
         labelBackgroundImage = new JLabel(backgroundImage);
        // spelGrid.setLayout(new GridLayout(4, 4));
@@ -113,10 +117,10 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nyttSpelKnapp) {
-            spelGrid.removeAll();
+            labelBackgroundImage.removeAll();
             Collections.shuffle(labelList);
             for (JLabel jLabel : labelList) {
-                spelGrid.add(jLabel);
+                labelBackgroundImage.add(jLabel);
             }
             winnerMess.setText(" ");
             revalidate();
