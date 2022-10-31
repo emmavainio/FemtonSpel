@@ -1,15 +1,12 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Kladd extends JFrame implements MouseListener, ActionListener {
+public class Kladd extends JFrame implements ActionListener {
     List<JLabel> labelList = new ArrayList<>();
     List<JLabel> correctList = new ArrayList<>();
     JPanel spelGrid = new JPanel();
@@ -23,7 +20,7 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
         for (int i = 0; i < 16; i++) {
             labelList.add(new JLabel(String.valueOf(i+1)));
             spelGrid.add(labelList.get(i));
-            labelList.get(i).addMouseListener(this);
+            labelList.get(i).addMouseListener(mouseClickListener);
             correctList.add(labelList.get(i));
         }
         labelList.get(labelList.size()-1).setText(" ");
@@ -36,44 +33,26 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
         nyttSpelKnapp.addActionListener(this);
 
         add(panel);
-        spelGrid.setPreferredSize(new Dimension(70, 70));
+        spelGrid.setPreferredSize(new Dimension(100, 100));
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        int indexBlank = 0;
-        int indexSiffra;
-        if (e.getSource() instanceof JLabel) {
-            indexSiffra = labelList.indexOf((JLabel) e.getSource());
-            SwitchPlaces sp = new SwitchPlaces(spelGrid, labelList, correctList, indexBlank, indexSiffra, winnerMess);
-            revalidate();
-            repaint();
+    MouseListener mouseClickListener = new MouseAdapter(){
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int indexBlank = 0;
+            int indexSiffra;
+            if (e.getSource() instanceof JLabel) {
+                indexSiffra = labelList.indexOf((JLabel) e.getSource());
+                SwitchPlaces sp = new SwitchPlaces(spelGrid, labelList, correctList, indexBlank, indexSiffra, winnerMess);
+                revalidate();
+                repaint();
+            }
         }
-    }
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    };
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nyttSpelKnapp) {
