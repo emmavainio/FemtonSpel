@@ -34,8 +34,6 @@ public class SwitchPlaces {
             }
             if (labelList.equals(correctList))
                 winnerMess.setText("Du vann!");
-     //       revalidate();
-       //     repaint();
         }
     }
 }
