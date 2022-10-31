@@ -24,7 +24,7 @@ public class SwitchPlaces {
                 backgroundPanel.add(jLabel);
             }
             if (labelList.equals(correctList))
-                winnerMess.setText("Du vann!");
+                winnerMess.setText("\uD83D\uDD25DU VANN‼\uD83D\uDD25");
         }
     }
 }
