@@ -14,11 +14,9 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
     List<String> stringList = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", " ");
     int[] plats = new int[15];
 
-    JLabel ett, två, tre, fyra, fem, sex, sju, åttå, nio, tio, elva, tolv, tretton, fjorton, femton, blank;
-    List<JLabel> labelList = Arrays.asList(ett, två, tre, fyra, fem, sex, sju, åttå, nio, tio, elva, tolv,
+    JLabel ett, två, tre, fyra, fem, sex, sju, åtta, nio, tio, elva, tolv, tretton, fjorton, femton, blank;
+    List<JLabel> labelList = Arrays.asList(ett, två, tre, fyra, fem, sex, sju, åtta, nio, tio, elva, tolv,
             tretton, fjorton, femton, blank);
-
-
     JPanel spelGrid = new JPanel();
     JButton nyttSpelKnapp = new JButton("Nytt spel!");
     JPanel panel = new JPanel();
@@ -77,9 +75,8 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
 
                 if (indexBlank % 4 == indexSiffra % 4 && Math.abs((indexBlank / 4) - (indexSiffra / 4)) == 1) {//den byter bara plats med 12:an
                     Collections.swap(labelList, indexSiffra, indexBlank);
-                    for (int i = 0; i < labelList.size(); i++) {
-                        labelList.get(i).setText(stringList.get(i));
-                    }//lägg i lista; se plats för 0, och om den man klickar på är inom plats +1, -1, +4 eller -4 kan man byta!
+                    //lägg i lista; se plats för 0, och om den man klickar på är inom plats +1, -1, +4 eller -4 kan man byta!
+                    revalidate();
                     repaint();
                 }
 
@@ -109,16 +106,13 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String[] tecken = new String[15];
-        int t = 0;
-        int räknare = 0;
         if (e.getSource() == nyttSpelKnapp) {
-           // spelGrid.removeAll();
+            spelGrid.removeAll();
             Collections.shuffle(labelList);
             for (int i = 0; i < labelList.size(); i++) {
-               labelList.get(i).setText(stringList.get(i));
+               spelGrid.add(labelList.get(i));
             }
-
+            revalidate();
             repaint();
         }
     }
