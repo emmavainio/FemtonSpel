@@ -10,9 +10,11 @@ import java.util.Arrays;
 //koppla JButtons till array
 
     public class ArrayClass extends JFrame {
-        ArrayClass(){
-            int rows = Integer.parseInt(JOptionPane.showInputDialog("Antal rader"));
-            int columns = Integer.parseInt(JOptionPane.showInputDialog("Antal kolumner"));
+        int rows = 0;
+        int columns = 0;
+        ArrayClass(int rows, int columns){
+           // int rows = Integer.parseInt(JOptionPane.showInputDialog("Antal rader"));
+            //int columns = Integer.parseInt(JOptionPane.showInputDialog("Antal kolumner"));
             int[][] myMultiArray = new int[rows][columns];
 
 
@@ -34,6 +36,7 @@ import java.util.Arrays;
 
             swapPlacesInArray(2, 2, myMultiArray);
         }
+
 
         public void swapPlacesInArray(int rowOfArray, int columnOfArray, int[][] myMultiArray){
             ArraySwap a = new ArraySwap();
@@ -141,7 +144,7 @@ import java.util.Arrays;
         }
 
         public static void main(String[] args) {
-            ArrayClass at = new ArrayClass();
+            ArrayClass at = new ArrayClass(4, 4);
         }
     }
 
