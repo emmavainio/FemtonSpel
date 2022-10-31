@@ -5,19 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SwitchPlaces {
-    private JPanel spelGrid = new JPanel();
-    private List<JLabel> labelList;
-    private List<JLabel> correctList;
-    private int indexBlank;
-    private int indexSiffra;
-    private JLabel winnerMess;
 
-    SwitchPlaces(JPanel spelGrid, List<JLabel> labelList, List<JLabel> correctList, int indexBlank, int indexSiffra, JLabel winnerMess){
-        this.spelGrid=spelGrid;
-        this.labelList=labelList;
-        this.indexBlank=indexBlank;
-        this.indexSiffra=indexSiffra;
-
+    SwitchPlaces(JLabel backgroundPanel, List<JLabel> labelList, List<JLabel> correctList, int indexBlank, int indexSiffra, JLabel winnerMess){//JPanel spelGrid,
         for (JLabel jl : labelList) {
             if (jl.getText().equals(" ")) {
                 indexBlank = labelList.indexOf(jl);
@@ -27,10 +16,12 @@ public class SwitchPlaces {
         if (indexBlank % 4 == indexSiffra % 4 && Math.abs((indexBlank / 4) - (indexSiffra / 4)) == 1
                 || Math.abs(indexBlank - indexSiffra) == 1 && !((indexSiffra % 4 == 0 && indexBlank % 4 == 3) ||
                 (indexSiffra % 4 == 3 && indexBlank % 4 == 0))) {
-            spelGrid.removeAll();
+            //spelGrid.removeAll();
+            backgroundPanel.removeAll();
             Collections.swap(labelList, indexSiffra, indexBlank);
             for (JLabel jLabel : labelList) {
-                spelGrid.add(jLabel);
+                //spelGrid.add(jLabel);
+                backgroundPanel.add(jLabel);
             }
             if (labelList.equals(correctList))
                 winnerMess.setText("Du vann!");
