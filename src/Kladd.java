@@ -5,14 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Kladd extends JFrame implements MouseListener, ActionListener {
-    JLabel ett, två, tre, fyra, fem, sex, sju, åtta, nio, tio, elva, tolv, tretton, fjorton, femton, blank;
-    List<JLabel> labelList = Arrays.asList(ett, två, tre, fyra, fem, sex, sju, åtta, nio, tio, elva, tolv,
-            tretton, fjorton, femton, blank);
+    List<JLabel> labelList = new ArrayList<>();
+    List<JLabel> correctList = new ArrayList<>();
     JPanel spelGrid = new JPanel();
     JButton nyttSpelKnapp = new JButton("Nytt spel!");
     JPanel panel = new JPanel();
@@ -21,10 +20,11 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
     public Kladd() {
         spelGrid.setLayout(new GridLayout(4, 4));
 
-        for (int i = 0; i < labelList.size(); i++) {
-            labelList.set(i, new JLabel(String.valueOf(i+1)));
+        for (int i = 0; i < 16; i++) {
+            labelList.add(new JLabel(String.valueOf(i+1)));
             spelGrid.add(labelList.get(i));
             labelList.get(i).addMouseListener(this);
+            correctList.add(labelList.get(i));
         }
         labelList.get(labelList.size()-1).setText(" ");
 
@@ -57,7 +57,6 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
                     indexBlank = labelList.indexOf(jl);
                 }
             }
-            System.out.println("index " + indexBlank + " " + indexSiffra);
 
             if (indexBlank % 4 == indexSiffra % 4 && Math.abs((indexBlank / 4) - (indexSiffra / 4)) == 1
             || Math.abs(indexBlank - indexSiffra) == 1 && !((indexSiffra % 4 == 0 && indexBlank % 4 == 3) ||
@@ -67,15 +66,13 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
                 for (JLabel jLabel : labelList) {
                     spelGrid.add(jLabel);
                 }
-                //lägg in att visa vinnarmeddelande när alla stämmer
+                if (labelList.equals(correctList))
+                    winnerMess.setText("Du vann!");
                 revalidate();
                 repaint();
             }
-
         }
-
     }
-
     @Override
     public void mousePressed(MouseEvent e) {
 
@@ -95,24 +92,20 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
     public void mouseExited(MouseEvent e) {
 
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nyttSpelKnapp) {
             spelGrid.removeAll();
             Collections.shuffle(labelList);
-            for (int i = 0; i < labelList.size(); i++) {
-                spelGrid.add(labelList.get(i));
+            for (JLabel jLabel : labelList) {
+                spelGrid.add(jLabel);
             }
             winnerMess.setText(" ");
             revalidate();
             repaint();
         }
     }
-
     public static void main(String[] args) {
         new Kladd();
     }
-
-
 }
