@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import static javax.swing.SwingConstants.CENTER;
 
 public class Main extends JFrame implements ActionListener {
@@ -12,7 +13,7 @@ public class Main extends JFrame implements ActionListener {
     List<JLabel> correctList = new ArrayList<>();
     JPanel gamePanel = new JPanel();
     JButton newGameButton = new JButton("««★\uD83C\uDF1FNytt spel!\uD83C\uDF1F★✴»»");
-    JPanel basePanel = new JPanel();
+    JPanel panel = new JPanel();
     JLabel winnerMess = new JLabel(" ");
     JLabel labelBackgroundImage = new JLabel(new ImageIcon("src/pinkDroplet.jpg"));
     Border border = BorderFactory.createLineBorder(new Color(139, 84, 154, 147), 1);
@@ -41,16 +42,15 @@ public class Main extends JFrame implements ActionListener {
             labelList.get(i).setFont(new Font("Bold Serif", Font.BOLD, 18));
             labelList.get(i).setHorizontalAlignment(CENTER);
             labelList.get(i).setBorder(border);
-
         }
+
         labelList.get(labelList.size() - 1).setText(" ");
 
-        basePanel.setLayout(new BorderLayout());
-        basePanel.add(newGameButton, BorderLayout.NORTH);
-        basePanel.add(gamePanel, BorderLayout.CENTER);
-        basePanel.add(winnerMess, BorderLayout.SOUTH);
-        basePanel.setBackground(new Color(0x794086));
-        basePanel.setPreferredSize(new Dimension(400, 420));
+        panel.setLayout(new BorderLayout());
+        panel.add(newGameButton, BorderLayout.NORTH);
+        panel.add(gamePanel, BorderLayout.CENTER);
+        panel.setBackground(new Color(0x794086));
+        panel.add(winnerMess, BorderLayout.SOUTH);
 
         winnerMess.setFont(new Font("Monospaced", Font.BOLD, 18));
         winnerMess.setForeground(new Color(0xFFFFFF));
@@ -58,7 +58,8 @@ public class Main extends JFrame implements ActionListener {
         winnerMess.setHorizontalAlignment(CENTER);
         winnerMess.setPreferredSize(new Dimension(330, 40));
 
-        add(basePanel);
+        add(panel);
+        panel.setPreferredSize(new Dimension(400, 420));
         pack();
         setVisible(true);
         setLocationRelativeTo(null);
