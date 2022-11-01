@@ -2,17 +2,14 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static javax.swing.SwingConstants.CENTER;
 
-public class Kladd extends JFrame implements MouseListener, ActionListener {
+public class Kladd extends JFrame implements ActionListener {
     List<JLabel> labelList = new ArrayList<>();
     List<JLabel> correctList = new ArrayList<>();
     JPanel spelGrid = new JPanel();
@@ -75,37 +72,19 @@ public class Kladd extends JFrame implements MouseListener, ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        int indexBlank = 0;
-        int indexSiffra;
-        if (e.getSource() instanceof JLabel) {
-            indexSiffra = labelList.indexOf((JLabel) e.getSource());
-            SwitchPlaces sp = new SwitchPlaces(labelBackgroundImage, labelList, correctList, indexBlank, indexSiffra, winnerMess);
-            revalidate();
-            repaint();
+    MouseListener mouseClickListener = new MouseAdapter(){
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int indexBlank = 0;
+            int indexSiffra;
+            if (e.getSource() instanceof JLabel) {
+                indexSiffra = labelList.indexOf((JLabel) e.getSource());
+                SwitchPlaces sp = new SwitchPlaces(spelGrid, labelList, correctList, indexBlank, indexSiffra, winnerMess);
+                revalidate();
+                repaint();
+            }
         }
-    }
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    };
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nyttSpelKnapp) {
