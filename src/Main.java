@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import static javax.swing.SwingConstants.CENTER;
 
 public class Main extends JFrame implements ActionListener {
