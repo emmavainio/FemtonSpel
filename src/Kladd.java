@@ -16,7 +16,6 @@ public class Kladd extends JFrame implements ActionListener {
     JButton newGameButton = new JButton("««★\uD83C\uDF1FNytt spel!\uD83C\uDF1F★✴»»");
     JPanel panel = new JPanel();
     JLabel winnerMess = new JLabel(" ");
-    //ImageIcon backgroundImage;
     JLabel labelBackgroundImage = new JLabel(new ImageIcon("src/pinkDroplet.jpg"));
     Border border = BorderFactory.createLineBorder(new Color(139, 84, 154, 147), 1);
 
@@ -25,20 +24,16 @@ public class Kladd extends JFrame implements ActionListener {
 
         newGameButton.setBackground(new Color(0x794086));
         newGameButton.setForeground(new Color(0xCBCBE0));
-        newGameButton.setPreferredSize(new Dimension(330,40));
+        newGameButton.setPreferredSize(new Dimension(330, 40));
         newGameButton.setFont(new Font("Monospaced", Font.BOLD, 18));
         newGameButton.setFocusPainted(false);
 
-        //backgroundImage = new ImageIcon("src/pinkDroplet.jpg");
-        //labelBackgroundImage = new JLabel(backgroundImage);
-
         gamePanel.add(labelBackgroundImage);
-        labelBackgroundImage.setLayout(new GridLayout(4,4));
-        labelBackgroundImage.setPreferredSize(new Dimension(330,330));
-
+        labelBackgroundImage.setLayout(new GridLayout(4, 4));
+        labelBackgroundImage.setPreferredSize(new Dimension(330, 330));
 
         for (int i = 0; i < 16; i++) {
-            labelList.add(new JLabel(String.valueOf(i+1)));
+            labelList.add(new JLabel(String.valueOf(i + 1)));
             labelBackgroundImage.add(labelList.get(i));
             labelList.get(i).addMouseListener(mouseClickListener);
             correctList.add(labelList.get(i));
@@ -49,7 +44,7 @@ public class Kladd extends JFrame implements ActionListener {
             labelList.get(i).setBorder(border);
 
         }
-        labelList.get(labelList.size()-1).setText(" ");
+        labelList.get(labelList.size() - 1).setText(" ");
 
         panel.setLayout(new BorderLayout());
         panel.add(newGameButton, BorderLayout.NORTH);
@@ -72,22 +67,19 @@ public class Kladd extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    MouseListener mouseClickListener = new MouseAdapter(){
+    MouseListener mouseClickListener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             int indexBlank = 0;
             int indexSiffra;
-            if (e.getSource() instanceof JLabel) {
+
+            if (labelList.contains((JLabel) e.getSource())) {
                 indexSiffra = labelList.indexOf((JLabel) e.getSource());
-                SwitchPlaces sp = new SwitchPlaces(gamePanel, labelList, correctList, indexBlank, indexSiffra, winnerMess);
+                SwitchPlaces sp = new SwitchPlaces();
+                sp.switchPlaces(labelBackgroundImage, labelList, correctList, indexBlank, indexSiffra, winnerMess);
                 revalidate();
                 repaint();
             }
-            if (labelList.contains(e.getSource())) {
-                indexSiffra = labelList.indexOf((JLabel) e.getSource());
-                SwitchPlaces sp = new SwitchPlaces(gamePanel, labelList, correctList, indexBlank, indexSiffra, winnerMess);
-                revalidate();
-                repaint();
         }
     };
     @Override
@@ -107,3 +99,4 @@ public class Kladd extends JFrame implements ActionListener {
         new Kladd();
     }
 }
+
