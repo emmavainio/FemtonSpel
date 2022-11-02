@@ -12,7 +12,7 @@ public class Main extends JFrame implements ActionListener {
     List<JLabel> labelList = new ArrayList<>();
     List<JLabel> correctList = new ArrayList<>();
     JPanel gamePanel = new JPanel();
-    JButton newGameButton = new JButton("««★\uD83C\uDF1FNytt spel!\uD83C\uDF1F★✴»»");
+    JButton newGameButton = new JButton("««★\uD83C\uDF1FNytt spel!\uD83C\uDF1F★»»");
     JPanel panel = new JPanel();
     JLabel winnerMess = new JLabel(" ");
     JLabel labelBackgroundImage = new JLabel(new ImageIcon("src/pinkDroplet.jpg"));
