@@ -54,7 +54,6 @@ public class Main extends JFrame implements ActionListener {
 
         winnerMess.setFont(new Font("Monospaced", Font.BOLD, 18));
         winnerMess.setForeground(new Color(0xFFFFFF));
-        //winnerMess.setBackground(new Color(0x402757));
         winnerMess.setHorizontalAlignment(CENTER);
         winnerMess.setPreferredSize(new Dimension(330, 40));
 
